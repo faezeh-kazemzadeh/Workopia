@@ -1,0 +1,66 @@
+version: "3.8"
+services:
+  server:
+    image: 'nginx:stable-alpine'
+    ports:
+      - '8000:80'
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - mariadb
+
+  php:
+    build: 
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      - "./src:/var/www/html:delegated"
+
+  mariadb:
+    image: mariadb:10.11
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    env_file:
+      - ./env/mariadb.env
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: secret
+    depends_on:
+      - mariadb
+
+  composer:
+    build: 
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
+ 
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      - "./src:/var/www/html"
+    depends_on:
+      - mariadb
+    #entrypoint: ["php","/var/www/html/artisan"]
+    tty: true
+    stdin_open: true
+
+  npm:
+    image: node:18-alpine
+    volumes:
+      - "./src:/var/www/html"
+    working_dir: /var/www/html
+    entrypoint: ["npm"]
+    tty: true
+    stdin_open: true
+
