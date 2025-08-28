@@ -56,11 +56,15 @@ services:
     stdin_open: true
 
   npm:
-    image: node:18-alpine
-    volumes:
-      - "./src:/var/www/html"
+    image: node:20-alpine
     working_dir: /var/www/html
     entrypoint: ["npm"]
+    volumes:
+      - "./src:/var/www/html"
+      - "./src/node_modules:/var/www/html/node_modules"
     tty: true
     stdin_open: true
+    ports:
+      - "5174:5173" 
+
 
