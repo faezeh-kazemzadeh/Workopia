@@ -59,12 +59,13 @@ services:
     image: node:20-alpine
     working_dir: /var/www/html
     entrypoint: ["npm"]
+    # entrypoint: ["/usr/local/bin/npm"]
+    command: ["run", "dev"]
     volumes:
       - "./src:/var/www/html"
-      - "./src/node_modules:/var/www/html/node_modules"
     tty: true
     stdin_open: true
     ports:
-      - "5174:5173" 
+      - "5173:5173" 
 
 
