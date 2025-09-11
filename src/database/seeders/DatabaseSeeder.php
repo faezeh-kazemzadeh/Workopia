@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
         DB::table('job_listing')->truncate();
         DB::table('users')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        $this->call(RandomUserSeeder::class,);
+
+        $this->call(TestUserSeeder::class);
+        $this->call(RandomUserSeeder::class, );
         $this->call(JobSeeder::class);
     }
 }
