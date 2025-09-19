@@ -4,7 +4,7 @@
         <label class="block text-gray-700" for="{{ $id }}">{{ $label }}</label>
     @endif
     <select name="{{ $name }}" id="{{ $id }}"
-        class="w-full px-4 py-2 border rounded focus:outline-none @error($name) border-red-500 @enderror">
+        class="w-full px-4 py-2 border border-gray-500/50 rounded focus:outline-none @error($name) border-red-500 @enderror">
         <option value="">{{ $slot->isEmpty() ? 'Select an option' : $slot }}</option>
         @foreach ($options as $optionValue => $optionLabel)
             <option value="{{ $optionValue }}" {{ old($name, $selected) == $optionValue ? 'selected' : '' }}>

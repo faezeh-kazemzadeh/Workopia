@@ -28,8 +28,11 @@ class LoginController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string',
         ]);
+
+        $remember = $request->boolean('remember');
+
         // Attempt to authenticate the user
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
             // Regenerate session to prevent fixation attacks
             $request->session()->regenerate();
             return redirect()->intended(route('home'))->with('success', 'Login successful.');

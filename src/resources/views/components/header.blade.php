@@ -18,10 +18,20 @@
             <x-nav-link href="/">Home</x-nav-link>
             <x-nav-link href="jobs">All Jobs</x-nav-link>
             @auth
-                <x-nav-link href="jobs/saved">Saved jobs</x-nav-link>
-                <x-nav-link href="dashboard" icon="gauge">Dashboard</x-nav-link>
+                <x-nav-link href="bookmarks">Saved jobs</x-nav-link>
                 <x-logout-button />
                 <x-button-link href="jobs/create" icon="edit">Create Job</x-button-link>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('dashboard') }}">
+                        @if (Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}"
+                                class="w-10 h-10 rounded-full">
+                        @else
+                            <img src="{{ asset('storage/avatars/default-avatar.png') }}" alt="{{ Auth::user()->name }}"
+                                class="w-10 h-10 rounded-full">
+                        @endif
+                    </a>
+                </div>
             @else
                 <x-nav-link href="login">Login</x-nav-link>
                 <x-nav-link href="register">Register</x-nav-link>
@@ -39,7 +49,7 @@
         <x-nav-link :mobile="true" href="/">Home</x-nav-link>
         <x-nav-link :mobile="true" href="jobs">All Jobs</x-nav-link>
         @auth
-            <x-nav-link :mobile="true" href="jobs/saved">Saved jobs</x-nav-link>
+            <x-nav-link :mobile="true" href="bookmarks">Saved jobs</x-nav-link>
 
             <x-nav-link :mobile="true" href="dashboard" icon="gauge">Dashboard</x-nav-link>
             <div class="pt-2">
