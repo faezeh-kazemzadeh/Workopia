@@ -5,6 +5,10 @@
             @csrf
             <x-inputs.text id="email" name="email" type="email" placeholder="Email Address" />
             <x-inputs.text id="password" name="password" type="password" placeholder="Password" />
+            <div class="flex items-center mb-4">
+                <input id="remember" type="checkbox" name="remember" value="1" class="mr-2">
+                <label for="remember" class="text-gray-700">Remember Me</label>
+            </div>
             <button
                 class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none">Login</button>
         </form>
